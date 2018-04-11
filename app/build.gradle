@@ -35,4 +35,5 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
     implementation project(':library')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
