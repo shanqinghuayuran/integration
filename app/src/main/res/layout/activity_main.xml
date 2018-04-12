@@ -7,12 +7,17 @@
     <Button
         android:id="@+id/bt_Test"
         android:layout_width="match_parent"
-        android:text="button 演示Java调用web"
+        android:text="演示使用JSBridge库来进行js与android的交互"
         android:layout_height="48dp"
         />
     <Button
         android:id="@+id/bt_testEventBus"
-        android:text="测试EventBus"
+        android:text="演示EventBus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/bt_testRetroftRxjava"
+        android:text="演示RxJava+Retroft+Okhttp3.0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!-- webview 演示web调用Java -->
