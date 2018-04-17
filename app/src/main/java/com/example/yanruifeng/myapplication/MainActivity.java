@@ -1,6 +1,7 @@
 package com.example.yanruifeng.myapplication;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.yanruifeng.myapplication.bean.MessageEvent;
 import com.example.yanruifeng.myapplication.utils.LogUtils;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
@@ -39,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         //注册EventBus
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
+        //动态注册接受广播者
+        IntentFilter filter=new IntentFilter();
+        filter.addAction("1");
+        SysBroadcastReceiver sbr=new SysBroadcastReceiver();
+        registerReceiver(sbr,filter);
        // LogUtils.d("1111",MyApp.getInstance().getApplicationContext());
         bwWebview.loadUrl("file:///android_asset/index.html");
         bwWebview.registerHandler("Android", new BridgeHandler() {
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.bt_Test, R.id.bt_testEventBus,R.id.bt_testRetroftRxjava})
+    @OnClick({R.id.bt_Test, R.id.bt_testEventBus,R.id.bt_testRetroftRxjava,R.id.bt_glide})
     public void click(View v) {
         switch (v.getId()) {
             //给js发送消息
@@ -69,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bt_testRetroftRxjava:
                 Intent intent1 = new Intent(this,  LoginActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.bt_glide:
+                Intent intent2 = new Intent(this, GlideActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.bt_sendBroadcast:
+                Intent intent3=new Intent(this,SubActivity.class);
+                startActivity(intent3);
                 break;
             default:
                 break;
