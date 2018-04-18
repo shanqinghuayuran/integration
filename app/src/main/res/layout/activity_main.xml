@@ -35,7 +35,15 @@
         android:text="Activity与Service通信"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <!-- webview 演示web调用Java -->
+    <com.example.yanruifeng.myapplication.bean.Group
+        android:id="@+id/group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.example.yanruifeng.myapplication.bean.Group>
+    <ImageView
+        android:id="@+id/civ_pic"
+        android:src="@mipmap/index_hot_food_img1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />    <!-- webview 演示web调用Java -->
     <com.github.lzyzsd.jsbridge.BridgeWebView
         android:id="@+id/bw_webview"
         android:layout_width="match_parent"

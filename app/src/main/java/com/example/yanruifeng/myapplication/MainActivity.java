@@ -7,11 +7,13 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.yanruifeng.myapplication.bean.Group;
 import com.example.yanruifeng.myapplication.bean.MessageEvent;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     Button btSendBroadcast;
     @BindView(R.id.bt_service)
     Button btService;
+    @BindView(R.id.civ_pic)
+    ImageView civPic;
+    @BindView(R.id.group)
+    Group group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         //注册EventBus
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        //动态注册接受广播者
+        group.setBottomButtonOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "我被点击了", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //动态注.册接受广播者
         IntentFilter filter = new IntentFilter();
         filter.addAction("1");
         SysBroadcastReceiver sbr = new SysBroadcastReceiver();
@@ -64,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         });
     }
 
-    @OnClick({R.id.bt_Test, R.id.bt_testEventBus, R.id.bt_testRetroftRxjava, R.id.bt_glide,R.id.bt_service})
+    @OnClick({R.id.bt_Test, R.id.bt_testEventBus, R.id.bt_testRetroftRxjava, R.id.bt_glide, R.id.bt_service, R.id.civ_pic})
     public void click(View v) {
         switch (v.getId()) {
             //给js发送消息
@@ -94,9 +106,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 break;
             case R.id.bt_service:
                 //Activity 与service交互 第一种方式
-                Intent intent4=new Intent(this,MyService.class);
-                intent4.putExtra("123","我了个去");
+                Intent intent4 = new Intent(this, MyService.class);
+                intent4.putExtra("123", "我了个去");
                 startService(intent4);
+                break;
+            case R.id.civ_pic:
+                //启动动画 补间动画执行之后并未改变View的真实布局属性值。
+                civPic.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.animation));
                 break;
             default:
                 break;
@@ -119,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-       // MyService mService= (MyService) iBinder;
+        // MyService mService= (MyService) iBinder;
         MyService.Binder binder = (MyService.Binder) iBinder;
         binder.setData("我了个去");
     }
