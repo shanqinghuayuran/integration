@@ -30,6 +30,11 @@
         android:id="@+id/bt_sendBroadcast"
         android:text="演示发送广播"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/bt_service"
+        android:text="Activity与Service通信"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <!-- webview 演示web调用Java -->
     <com.github.lzyzsd.jsbridge.BridgeWebView
         android:id="@+id/bw_webview"

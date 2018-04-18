@@ -1,17 +1,18 @@
 package com.example.yanruifeng.myapplication;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.yanruifeng.myapplication.bean.MessageEvent;
-import com.example.yanruifeng.myapplication.utils.LogUtils;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
@@ -24,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ServiceConnection {
     @BindView(R.id.bt_Test)
     Button btTest;
     @BindView(R.id.bw_webview)
@@ -33,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
     Button btTestEventBus;
     @BindView(R.id.bt_testRetroftRxjava)
     Button btTestRetroftRxjava;
+    @BindView(R.id.bt_glide)
+    Button btGlide;
+    @BindView(R.id.bt_sendBroadcast)
+    Button btSendBroadcast;
+    @BindView(R.id.bt_service)
+    Button btService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         //动态注册接受广播者
-        IntentFilter filter=new IntentFilter();
+        IntentFilter filter = new IntentFilter();
         filter.addAction("1");
-        SysBroadcastReceiver sbr=new SysBroadcastReceiver();
-        registerReceiver(sbr,filter);
-       // LogUtils.d("1111",MyApp.getInstance().getApplicationContext());
+        SysBroadcastReceiver sbr = new SysBroadcastReceiver();
+        registerReceiver(sbr, filter);
+        // LogUtils.d("1111",MyApp.getInstance().getApplicationContext());
         bwWebview.loadUrl("file:///android_asset/index.html");
         bwWebview.registerHandler("Android", new BridgeHandler() {
             @Override
@@ -57,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.bt_Test, R.id.bt_testEventBus,R.id.bt_testRetroftRxjava,R.id.bt_glide})
+    @OnClick({R.id.bt_Test, R.id.bt_testEventBus, R.id.bt_testRetroftRxjava, R.id.bt_glide,R.id.bt_service})
     public void click(View v) {
         switch (v.getId()) {
             //给js发送消息
@@ -74,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.bt_testRetroftRxjava:
-                Intent intent1 = new Intent(this,  LoginActivity.class);
+                Intent intent1 = new Intent(this, LoginActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.bt_glide:
@@ -82,8 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.bt_sendBroadcast:
-                Intent intent3=new Intent(this,SubActivity.class);
+                Intent intent3 = new Intent(this, SubActivity.class);
                 startActivity(intent3);
+                break;
+            case R.id.bt_service:
+                //Activity 与service交互 第一种方式
+                Intent intent4=new Intent(this,MyService.class);
+                intent4.putExtra("123","我了个去");
+                startService(intent4);
                 break;
             default:
                 break;
@@ -102,5 +115,17 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //取消注册
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+       // MyService mService= (MyService) iBinder;
+        MyService.Binder binder = (MyService.Binder) iBinder;
+        binder.setData("我了个去");
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
     }
 }
