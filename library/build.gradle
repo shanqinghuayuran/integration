@@ -23,6 +23,13 @@ android {
         checkReleaseBuilds false
     }
 }
-
 dependencies {
 }
+task makeJar(type: org.gradle.api.tasks.Copy){
+    delete "build/libs/commentUtil.jar"
+    from("build/intermediates/bundles/release/")
+    into("build/libs/")
+    include("classes.jar")
+    rename("classes.jar","jsBridge.jar")
+}
+makeJar.dependsOn(build)
