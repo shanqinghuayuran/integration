@@ -3,7 +3,7 @@
 网络请求相关主要放在了http包中,有两个辅助类 一个是RetroftManager，另一个是RetrofitService，使用方式
   RetrofitService service = new RetrofitManager(this).createService(RetrofitService.class);
         Observable<Product> userObservable = service.getProduct();
-        //发起网络请求
+        
         userObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Product>() {
             @Override
             public void onCompleted() {
