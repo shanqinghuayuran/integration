@@ -3,18 +3,14 @@
 网络请求相关主要放在了http包中,有两个辅助类 一个是RetroftManager，另一个是RetrofitService，使用方式
   RetrofitService service = new RetrofitManager(this).createService(RetrofitService.class);
         Observable<Product> userObservable = service.getProduct();
-        
         userObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Product>() {
             @Override
             public void onCompleted() {
-
             }
-
             @Override
             public void onError(Throwable e) {
                 Log.d("123",e.getMessage());
             }
-
             @Override
             public void onNext(Product product) {
                 lvList.setAdapter(new lvdapter(product.getCarouselItems(),LoginActivity.this));
