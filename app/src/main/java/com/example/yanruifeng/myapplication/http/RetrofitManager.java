@@ -1,11 +1,8 @@
-package com.example.yanruifeng.myapplication.interfaces;
+package com.example.yanruifeng.myapplication.http;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.yanruifeng.myapplication.MyApp;
-import com.example.yanruifeng.myapplication.utils.LogUtils;
 import com.example.yanruifeng.myapplication.utils.NetworkUtils;
 
 import java.io.File;
@@ -24,14 +21,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * @author yanruifeng
  */
-public class ServiceGenerator {
+public class RetrofitManager {
     private Context context;
     private  File httpCacheDirectory;
     private  int cacheSize = 10 * 1024 * 1024; // 10 MiB
     private Cache cache;
     private  OkHttpClient client;
     private  Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR;
-    public ServiceGenerator(Context context) {
+    public static RetrofitManager instance=null;
+    private RetrofitManager(Context context) {
         this.context = context;
         this.httpCacheDirectory=new File(context.getCacheDir(), "responses");
         this.cache = new Cache(httpCacheDirectory, cacheSize);
