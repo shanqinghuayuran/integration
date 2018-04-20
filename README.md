@@ -29,5 +29,62 @@
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
  ### 图片圆形库
 Github地址：https://github.com/hdodenhof/CircleImageView
+### Android与H5交互通信桥梁 使用JsBridge开源库,传统意义上一般使用是把library引入 ,然后你的Module去依赖它。但是我已经把它弄成 jsBridge.aar包了,你只需要在你的Module下添加一个libs(和app同级目录)，然后把这个jsBridge.aar包放入到该文件夹中,然后在你的Module下的build.gradle下 添加compile(name: "jsBridge", ext: "aar")
+```javascript
+function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function() {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+    connectWebViewJavascriptBridge(function(bridge) {
+//        bridge.init(function(message, responseCallback) {
+//        console.log('JS got a message', message);
+//           alert(message);
+//            responseCallback(data);
+//        });
+        bridge.registerHandler("functionInJs", function(data, responseCallback) {
+                document.getElementById("show").innerHTML = "Native发来的消息是：" + data;
+                var responseData = "Javascript Says Right back aka!";
+                responseCallback(responseData);
+            });
+    })
+    function go(){
+    //给android 发送消息
+            window.WebViewJavascriptBridge.callHandler(
+                "Android",
+                "Hello",
+                function(responseData){
+                    document.getElementById("show").innerHTML = "Native给我的数据:"+responseData;
+                }
+            );
+        }
+
+```
+```java
+bwWebview.loadUrl("file:///android_asset/index.html");
+        bwWebview.registerHandler("Android", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                Toast.makeText(MainActivity.this, "H5给我的数据：" + data, Toast.LENGTH_SHORT).show();
+                function.onCallBack("fuck!");
+            }
+        });
+    }
+    bwWebview.callHandler("functionInJs", "传递消息给h5", new CallBackFunction() {
+                    @Override
+                    public void onCallBack(String data) {
+                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
+                    }
+                });
+```
+
 
 
