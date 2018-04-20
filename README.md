@@ -29,7 +29,7 @@
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
  #### 图片圆形库
 Github地址：https://github.com/hdodenhof/CircleImageView
-### Android与H5交互通信桥梁 使用JsBridge开源库,传统意义上一般使用是把library引入 ,然后你的Module去依赖它。但是我已经把它弄成 jsBridge.aar包了,你只需要在你的Module下添加一个libs(和app同级目录)，然后把这个jsBridge.aar包放入到该文件夹中,然后在你的Module下的build.gradle下 添加compile(name: "jsBridge", ext: "aar")
+#### Android与H5交互通信桥梁 使用JsBridge开源库,传统意义上一般使用是把library引入 ,然后你的Module去依赖它。但是我已经把它弄成 jsBridge.aar包了,你只需要在你的Module下添加一个libs(和app同级目录)，然后把这个jsBridge.aar包放入到该文件夹中,然后在你的Module下的build.gradle下 添加compile(name: "jsBridge", ext: "aar")
 ```javascript
 function connectWebViewJavascriptBridge(callback) {
         if (window.WebViewJavascriptBridge) {
