@@ -28,8 +28,7 @@ public class RetrofitManager {
     private Cache cache;
     private  OkHttpClient client;
     private  Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR;
-    public static RetrofitManager instance=null;
-    private RetrofitManager(Context context) {
+    public RetrofitManager(Context context) {
         this.context = context;
         this.httpCacheDirectory=new File(context.getCacheDir(), "responses");
         this.cache = new Cache(httpCacheDirectory, cacheSize);
