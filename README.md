@@ -13,8 +13,6 @@
             @Override
             public void onError(Throwable e) {
                 Log.d("123",e.getMessage());
-                //Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
