@@ -1,5 +1,8 @@
 #### [下拉刷新系列一android-Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh)
 #### [下拉刷新系列二 XRecyclerView](https://github.com/XRecyclerView/XRecyclerView)
+目前大多数APP已经使用了RecylerView,而废弃了listview的使用,使用recylerView 会用到下拉刷新与上拉加载,上边所述下拉刷新系列二是最好的选择
+但是传统意义上recylerView适配器是一件令人头疼的事情，比较繁琐,这个不用担心,咋们的鸿洋大神已经封装好了现成的万能适配器BaseAdapter
+XRecylerView+BaseAdapter是一个非常好的选择
 #### 网络请求 RxJava+Retrofit+Okhttp3.0
 #### 网络请求相关主要放在了http包中,有两个辅助类 一个是RetroftManager，另一个是RetrofitService，其中使用OKhttp3.0设置了缓存,再也不需要用Sqlite和S进行网络缓存数据。 使用方式 网络相关NetworkUtils工具类 [可查看我的blog](https://blog.csdn.net/qq_21937107/article/details/79904324)
 ```java
