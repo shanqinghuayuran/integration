@@ -35,6 +35,11 @@
         android:text="Activity与Service通信"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/bt_skip"
+        android:text="跳转"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <com.example.yanruifeng.myapplication.bean.Group
         android:id="@+id/group"
         android:layout_width="match_parent"
