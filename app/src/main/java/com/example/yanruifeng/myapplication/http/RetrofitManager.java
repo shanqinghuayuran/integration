@@ -37,7 +37,6 @@ public class RetrofitManager {
             cacheBuilder.maxAge(0, TimeUnit.SECONDS);
             cacheBuilder.maxStale(365, TimeUnit.DAYS);
             CacheControl cacheControl = cacheBuilder.build();
-            Log.d("12345",context.toString());
             Request request = chain.request();
             if (!NetworkUtils.isAvailable(context)) {
                 request = request.newBuilder()
