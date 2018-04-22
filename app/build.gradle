@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 26
@@ -21,6 +21,8 @@ android {
     compileOptions {
         // sourceCompatibility JavaVersion.VERSION_1_8
         //targetCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
     greendao {
         //指定数据库schema版本号，迁移等操作会用到
@@ -63,6 +65,8 @@ dependencies {
     compile 'org.greenrobot:greendao-generator:3.2.2'
     //    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.0.1'
     compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.2'
-   // implementation files('libs/jsBridge.jar')
-    compile(name:"library-release",ext:"aar")
+    // implementation files('libs/jsBridge.jar')
+    compile(name: "library-release", ext: "aar")
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.jcodecraeer:xrecyclerview:1.5.9'
 }
