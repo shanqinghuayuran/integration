@@ -15,6 +15,6 @@ public class SysBroadcastReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, ""+intent.getStringExtra("tag"), Toast.LENGTH_SHORT).show();
         //发送广播销毁当前Activity
-        ((Activity)context).finish();
+//        ((MainActivity)context).
     }
 }

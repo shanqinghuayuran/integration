@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.yanruifeng.myapplication.adapter.lvdapter;
 import com.example.yanruifeng.myapplication.bean.Product;
-import com.example.yanruifeng.myapplication.interfaces.ApiService;
-import com.example.yanruifeng.myapplication.interfaces.ServiceGenerator;
-import com.example.yanruifeng.myapplication.utils.LogUtils;
-
+import com.example.yanruifeng.myapplication.http.RetrofitManager;
+import com.example.yanruifeng.myapplication.http.RetrofitService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -30,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
        // MyApp.getInstance().addActivity(this);
-        ApiService service = new ServiceGenerator(this).createService(ApiService.class);
+        RetrofitService service = new RetrofitManager(this).createService(RetrofitService.class);
         Observable<Product> userObservable = service.getProduct();
         //发起网络请求
         userObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Product>() {

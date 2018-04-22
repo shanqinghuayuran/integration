@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     ImageView civPic;
     @BindView(R.id.group)
     Group group;
+    @BindView(R.id.bt_skip)
+    Button btSkip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         //注册EventBus
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
+        Log.d("tag","走了");
         group.setBottomButtonOnClick(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         });
     }
 
-    @OnClick({R.id.bt_Test, R.id.bt_testEventBus, R.id.bt_testRetroftRxjava, R.id.bt_glide, R.id.bt_service, R.id.civ_pic})
+    @OnClick({R.id.bt_skip,R.id.bt_Test, R.id.bt_testEventBus, R.id.bt_testRetroftRxjava, R.id.bt_glide, R.id.bt_service, R.id.civ_pic})
     public void click(View v) {
         switch (v.getId()) {
             //给js发送消息
@@ -114,6 +118,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 //启动动画 补间动画执行之后并未改变View的真实布局属性值。
                 civPic.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.animation));
                 break;
+            case R.id.bt_skip:
+                Intent intent5=new Intent(MainActivity.this,TestCaseActivity.class);
+                startActivity(intent5);
+                break;
             default:
                 break;
         }
@@ -143,5 +151,23 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("tag","走了1");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("tag","走了2");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("tag","走了3");
     }
 }
